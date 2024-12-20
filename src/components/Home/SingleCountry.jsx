@@ -11,7 +11,7 @@ const SingleCountry = ({ country, darkMode }) => {
       <img
         src={country.flags.png}
         alt={`${country.name.common} flag`}
-        className="h-[200px] w-[400px] rounded-t-lg "
+        className="h-40 w-full rounded-t-lg "
       />
       <div className="flex flex-col items-start p-10">
         <h1 className="text-4xl font-bold py-5">{country.name.common} </h1>

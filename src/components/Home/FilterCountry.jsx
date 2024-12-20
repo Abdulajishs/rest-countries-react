@@ -7,11 +7,11 @@ const FilterCountry = ({ selected, onSelect, regions, darkMode }) => {
   };
 
   return (
-    <div className="relative ml-8 my-8 md:ml-0">
+    <div className="relative ml-8 my-8 md:ml-0 md:my-5">
       <select
         className={`${
           darkMode ? "bg-gray-900 text-white " : "bg-white "
-        } text-2xl  p-6  shadow-md rounded-md h-24 w-[70%] sm:w-[60%] md:[w-40%] lg:[w-20%] appearance-none `}
+        } text-2xl  p-6  shadow-md rounded-md h-24 w-[70%] md:w-full appearance-none md:h-16 md:text-xl md:p-2 md:px-10`}
         value={selected}
         onChange={handleChange}
       >
@@ -27,7 +27,7 @@ const FilterCountry = ({ selected, onSelect, regions, darkMode }) => {
           </option>
         ))}
       </select>
-      <FaChevronDown className="absolute left-[65%] sm:left-[55%] md:left-[45%]  top-1/2 transform -translate-y-1/2  pointer-events-none" />
+      <FaChevronDown className="absolute left-[65%] md:left-[90%] top-1/2 transform -translate-y-1/2  pointer-events-none" />
     </div>
   );
 };

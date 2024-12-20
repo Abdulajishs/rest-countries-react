@@ -34,7 +34,7 @@ const Home = ({ countries, regions }) => {
             darkMode ? "bg-gray-950 text-white " : "bg-gray-100 "
           } `}
         >
-          <div className={`md:flex-row md:justify-between md:px-16`}>
+          <div className={`md:flex md:flex-row md:justify-between md:px-16`}>
             <SearchCountry
               search={search}
               onSearch={setSearch}
