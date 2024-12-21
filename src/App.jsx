@@ -6,10 +6,14 @@ import {
   RouterProvider,
 } from "react-router-dom";
 import HomePage from "./pages/HomePage";
+import DetailPage from "./pages/DetailPage";
+import MainLayout from "./layouts/MainLayout";
 
 const App = () => {
   const [country, setCountry] = useState([]);
   const [regions, setRegions] = useState([]);
+  const [darkMode, setDarkMode] = useState(false);
+  const [borderAbbr, setBorderAbbr] = useState([]);
 
   useEffect(() => {
     const fetchCountries = async () => {
@@ -24,6 +28,17 @@ const App = () => {
         // console.log(unique);
         setRegions(unique);
         setCountry(data);
+
+        setBorderAbbr(() => {
+          let result = data.map((ele) => {
+            let name = ele.name.common;
+            let abb = ele.cca3;
+            // console.log(name, abb, { [abb]: name });
+            return { [abb]: name };
+          });
+          // console.log(result);
+          return result;
+        });
       } catch (error) {
         console.error(error.message);
       }
@@ -35,8 +50,19 @@ const App = () => {
     createRoutesFromElements(
       <Route
         path="/"
-        element={<HomePage country={country} regions={regions} />}
-      />
+        element={<MainLayout darkMode={darkMode} onMode={setDarkMode} />}
+      >
+        <Route
+          index
+          element={
+            <HomePage country={country} regions={regions} darkMode={darkMode} />
+          }
+        />
+        <Route
+          path="/detail"
+          element={<DetailPage darkMode={darkMode} borderAbbr={borderAbbr} />}
+        />
+      </Route>
     )
   );
   return <RouterProvider router={router} />;

@@ -1,12 +1,19 @@
 import React from "react";
+import { useNavigate } from "react-router-dom";
 
 const SingleCountry = ({ country, darkMode }) => {
   // console.log(country);
+  let navigate = useNavigate();
+  const navigateHandler = () => {
+    // console.log(country);
+    navigate("/detail", { state: country });
+  };
   return (
     <div
       className={`${
         darkMode ? "bg-gray-900 text-white " : "bg-white "
       } rounded-lg mb-16 `}
+      onClick={navigateHandler}
     >
       <img
         src={country.flags.png}
