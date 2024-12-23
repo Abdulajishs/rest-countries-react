@@ -13,7 +13,7 @@ const DisplayCountries = ({
     ${
       filteredCountries.length === 0 && search
         ? "flex flex-row justify-center items-center"
-        : "grid grid-cols-1 gap-10 mx-24 md:my-10 md:mx-16 md:grid md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4"
+        : "grid grid-cols-1 gap-10 m-5 sm:mx-24 md:my-10 md:mx-16 md:grid md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4"
     }`}
     >
       {filteredCountries.length === 0 && search ? (

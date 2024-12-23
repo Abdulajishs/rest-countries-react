@@ -4,48 +4,25 @@ import { useLocation, useNavigate } from "react-router-dom";
 import Borders from "./Borders";
 
 const Detail = ({ darkMode, borderAbbr }) => {
-  let [currency, setCurrency] = useState("");
-  let [languages, setLanguages] = useState("");
-  let [border, setBorder] = useState([]);
-
   let location = useLocation();
   let country = location.state || {};
 
   let navigate = useNavigate();
 
   // console.log(country, borderAbbr);
+  const currency = Object.keys(country.currencies || {}).length
+    ? country.currencies[Object.keys(country.currencies)[0]].name
+    : "N/A";
 
-  useEffect(() => {
-    setCurrency(() => {
-      let currencyKey = Object.keys(country.currencies)[0];
-      return country.currencies[currencyKey].name;
-    });
-    setLanguages(() => {
-      let lang = Object.values(country.languages).sort().join(",");
-      return lang;
-    });
-    setBorder(() => {
-      let arr = country.borders;
-      // console.log(arr);
-      if (!arr) {
-        return [];
-      }
-      // console.log(arr);
-      let bor = [];
-      arr.forEach((ele) => {
-        borderAbbr.forEach((obj) => {
-          let key = Object.keys(obj)[0];
-          // console.log(ele, key);
-          if (ele === key) {
-            // console.log(obj);
-            bor.push(obj[key]);
-          }
-        });
-      });
-      console.log(bor);
-      return bor;
-    });
-  }, [country]);
+  const languages =
+    Object.values(country.languages || {})
+      .sort()
+      .join(", ") || "N/A";
+
+  const border = (country.borders || []).map(
+    (code) =>
+      borderAbbr.find((obj) => Object.keys(obj)[0] === code)?.[code] || "N/A"
+  );
 
   let backToHomeHandler = () => {
     navigate("/");
