@@ -4,8 +4,9 @@ import { useLocation, useNavigate } from "react-router-dom";
 import Borders from "./Borders";
 import ThemeContext from "../../store/ThemeContext";
 import Spinner from "../UI/Spinner";
+import NotFound from "../UI/NotFound";
 
-const Detail = ({ countries, loading }) => {
+const Detail = ({ countries, loading, hasError }) => {
   const { darkMode } = useContext(ThemeContext);
 
   let location = useLocation();
@@ -50,6 +51,8 @@ const Detail = ({ countries, loading }) => {
       </button>
       {loading ? (
         <Spinner loading={loading} />
+      ) : hasError ? (
+        <NotFound />
       ) : (
         <div className="flex flex-col gap-4 md:flex-row md:items-center md:gap-20 lg:gap-32  ">
           <img

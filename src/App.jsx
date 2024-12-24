@@ -12,6 +12,7 @@ import MainLayout from "./layouts/MainLayout";
 const App = () => {
   const [country, setCountry] = useState([]);
   const [loading, setLoading] = useState(true);
+  const [hasError, setHasError] = useState(false);
 
   useEffect(() => {
     const fetchCountries = async () => {
@@ -24,6 +25,7 @@ const App = () => {
         setCountry(data);
         setLoading(false);
       } catch (error) {
+        setHasError(true);
         console.error(error.message);
       }
     };
@@ -35,11 +37,19 @@ const App = () => {
       <Route path="/" element={<MainLayout />}>
         <Route
           index
-          element={<HomePage country={country} loading={loading} />}
+          element={
+            <HomePage country={country} loading={loading} hasError={hasError} />
+          }
         />
         <Route
           path="/country/:id"
-          element={<DetailPage country={country} loading={loading} />}
+          element={
+            <DetailPage
+              country={country}
+              loading={loading}
+              hasError={hasError}
+            />
+          }
         />
       </Route>
     )
