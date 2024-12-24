@@ -1,6 +1,9 @@
-import React from "react";
+import React, { useContext } from "react";
+import ThemeContext from "../../store/ThemeContext";
 
-const SearchCountry = ({ search, onSearch, darkMode }) => {
+const SearchCountry = ({ search, onSearch }) => {
+  const { darkMode } = useContext(ThemeContext);
+
   const searchHandler = (e) => {
     onSearch(e.target.value);
   };

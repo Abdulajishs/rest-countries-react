@@ -1,10 +1,10 @@
 import React from "react";
 import Home from "../components/Home/Home";
 
-const HomePage = ({ country, regions, darkMode }) => {
+const HomePage = ({ country, loading }) => {
   return (
     <div>
-      <Home countries={country} regions={regions} darkMode={darkMode} />
+      <Home countries={country} loading={loading} />
     </div>
   );
 };

@@ -1,6 +1,19 @@
-import React from "react";
+import React, { useContext } from "react";
+import ThemeContext from "../../store/ThemeContext";
+import { useNavigate } from "react-router-dom";
 
-const Borders = ({ borders, darkMode }) => {
+const Borders = ({ borders, countries }) => {
+  const { darkMode } = useContext(ThemeContext);
+  let navigate = useNavigate();
+
+  const borderClickHandler = (borderName) => {
+    let selectCountry = countries.find(
+      (country) => country.name.common === borderName
+    );
+    // console.log(selectCountry);
+    navigate(`/country/${selectCountry.ccn3}`, { state: selectCountry });
+  };
+
   //   console.log(borders);
   return (
     <>
@@ -20,6 +33,7 @@ const Borders = ({ borders, darkMode }) => {
                   darkMode ? "bg-gray-900 text-white " : "bg-white  "
                 } px-8 py-3 rounded-md shadow-md md:px-1 md:py-2 w-full text-center break-words`}
                 key={index}
+                onClick={() => borderClickHandler(border)}
               >
                 {border}
               </button>

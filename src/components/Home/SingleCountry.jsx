@@ -1,12 +1,14 @@
-import React from "react";
+import React, { useContext } from "react";
 import { useNavigate } from "react-router-dom";
+import ThemeContext from "../../store/ThemeContext";
 
-const SingleCountry = ({ country, darkMode }) => {
-  // console.log(country);
+const SingleCountry = ({ country, id }) => {
+  const { darkMode } = useContext(ThemeContext);
   let navigate = useNavigate();
+
   const navigateHandler = () => {
     // console.log(country);
-    navigate("/detail", { state: country });
+    navigate(`/country/${id}`, { state: country });
   };
   return (
     <div

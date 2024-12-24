@@ -1,10 +1,10 @@
 import React from "react";
 import Detail from "../components/Detail/Detail";
 
-const DetailPage = ({ darkMode, borderAbbr }) => {
+const DetailPage = ({ country, loading }) => {
   return (
     <div>
-      <Detail darkMode={darkMode} borderAbbr={borderAbbr} />
+      <Detail countries={country} loading={loading} />
     </div>
   );
 };

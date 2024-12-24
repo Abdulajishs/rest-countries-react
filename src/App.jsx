@@ -11,9 +11,7 @@ import MainLayout from "./layouts/MainLayout";
 
 const App = () => {
   const [country, setCountry] = useState([]);
-  const [regions, setRegions] = useState([]);
-  const [darkMode, setDarkMode] = useState(false);
-  const [borderAbbr, setBorderAbbr] = useState([]);
+  const [loading, setLoading] = useState(true);
 
   useEffect(() => {
     const fetchCountries = async () => {
@@ -23,22 +21,8 @@ const App = () => {
           throw new Error(`Error fetching data from from ${res.url}`);
         }
         let data = await res.json();
-        let allRegions = data.map((country) => country.region);
-        let unique = [...new Set(allRegions)].filter((region) => region);
-        // console.log(unique);
-        setRegions(unique);
         setCountry(data);
-
-        setBorderAbbr(() => {
-          let result = data.map((ele) => {
-            let name = ele.name.common;
-            let abb = ele.cca3;
-            // console.log(name, abb, { [abb]: name });
-            return { [abb]: name };
-          });
-          // console.log(result);
-          return result;
-        });
+        setLoading(false);
       } catch (error) {
         console.error(error.message);
       }
@@ -48,19 +32,14 @@ const App = () => {
 
   let router = createBrowserRouter(
     createRoutesFromElements(
-      <Route
-        path="/"
-        element={<MainLayout darkMode={darkMode} onMode={setDarkMode} />}
-      >
+      <Route path="/" element={<MainLayout />}>
         <Route
           index
-          element={
-            <HomePage country={country} regions={regions} darkMode={darkMode} />
-          }
+          element={<HomePage country={country} loading={loading} />}
         />
         <Route
-          path="/detail"
-          element={<DetailPage darkMode={darkMode} borderAbbr={borderAbbr} />}
+          path="/country/:id"
+          element={<DetailPage country={country} loading={loading} />}
         />
       </Route>
     )
